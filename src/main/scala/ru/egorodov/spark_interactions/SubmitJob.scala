@@ -6,17 +6,13 @@ import HttpMethods._
 import HttpProtocols._
 import MediaTypes._
 import akka.actor.ActorSystem
-import akka.stream.ActorMaterializer
-import ru.egorodov.utils.JsonSupport
 import ru.egorodov.domains.SubmissionResult
 
-object SubmitJob extends JsonSupport with SparkRESTRequestRuner {
+object SubmitJob extends SparkRESTRequestRuner {
   def apply(submission: SubmissionWrapper)(implicit actorSystem: ActorSystem): Option[SubmissionResult] = {
-    implicit val materializer = ActorMaterializer()
-
     val request = HttpRequest(
       POST,
-      uri = submission.sparkMasterUi,
+      uri = submission.sparkMasterUi + "/v1/submissions/create",
       entity = HttpEntity(`application/json`, v1CreateSubmissionparams(submission)),
       protocol = `HTTP/1.1`)
 

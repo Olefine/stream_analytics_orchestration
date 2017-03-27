@@ -5,3 +5,5 @@ final case class SubmissionWrapper(sparkMasterUi: String, appResource: String,
                                    sparkJars: String, sparkAppName: String,
                                    sparkMaster: String
 )
+
+final case class CheckRatio(ratio: Double, applicationName: String)
